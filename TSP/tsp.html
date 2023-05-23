@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>visualizer</title>
+    <link rel="stylesheet" href="tsp.css">
+</head>
+
+<body>
+    <h1>
+        TSP用のvisualizer
+    </h1>
+    <div class="problem">
+        <p>
+            問題は巡回セールスマン問題です<br>
+            頂点数と辺の数、辺の長さをそれぞれ与えるので回る順番を出力してください
+        </p>
+        使い方
+        <details>
+            <p>
+                色々いじってみてね
+            </p>
+        </details>
+    </div>
+    <hr>
+
+    <p>
+        <!--ここにシードとか入れてinputを変えられるようにする-->
+        <label>
+            Seed:
+            <input type="number" id="seed" value="0" min="0" max="2147483647" onchange="generate()">
+        </label>
+    </p>
+
+    <p>
+        <!--input欄をここに作る-->
+        <label>
+            Input: <br>
+            <textarea id="input" rows="4" style="width:500px;" oninput="updateInOut()"></textarea>
+        </label>
+    </p>
+
+    <p>
+        <!--output欄をここに作る-->
+        <label>
+            Output: <br>
+            <textarea id="output" rows="4" style="width:500px;" oninput="updateInOut()"></textarea>
+        </label>
+    </p>
+
+    <p>
+        <!--ここに画層保存やシェアツイートなどの欄を作る-->
+    </p>
+
+    <p>
+        <!--ここに再生ボタンなどのものを作る-->
+
+        Turn:
+        <input type="number" id="turn" value="0" min="0" max="0" onchange="changeTurn(this.value)">
+        <input type="range" id="turnBar" value="0" min="0" max="0" onchange="changeTurn(this.value)"
+            oninput="changeTurn(this.value)">
+    </p>
+    <hr>
+
+    <div id="result">
+    </div>
+
+    <p id="score">
+        Score = 0
+    </p>
+
+    <div>
+        <!--visualizer本体-->
+    </div>
+
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <script src="tsp.js"></script>
+</body>
+
+</html>
