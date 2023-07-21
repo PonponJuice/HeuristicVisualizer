@@ -29,6 +29,9 @@ function computeScore(input, output) {
     const N = input[0][0];
     const c = input[1];
     for (let i = 0; i < N; i++) {
+        if(typeof(output[i][0]) != "number"){
+            return { score: 0, error: output[i][0] + " is not number" };
+        }
         if(output[i][0] < 1 || output[i][0] > 26){
             return { score: 0, error: output[i][0] + " is not contest" };
         }
@@ -56,7 +59,10 @@ function StringToArray(value) {
         const outs = out.split(/\s+/);
         let words = [];
         for (let word of outs) {
-            if (word != '') words.push(Number(word));
+            if (word != '') {
+                let w = Number(word);
+                words.push(isNaN(w)?word:w);
+            }
         }
         if (words.length != 0) {
             output.push(words);
@@ -88,12 +94,14 @@ function visualize() {
             document.getElementById("score").innerHTML = "Score = " + result.score;
         } else {
             document.getElementById("result").innerHTML = "<p>" + result.error + "</p>";
-            return;
         }
+        return;
     }catch (error) {
         console.log(error);
         document.getElementById("result").innerHTML = "<p>Invalid</p>";
+        return;
     }
+
 }
 
 async function generate() {
