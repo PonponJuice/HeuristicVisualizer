@@ -1,17 +1,21 @@
-const DrawSize = 300;
+const DrawSize = 600;
 const Margin = 30;
 const app = new PIXI.Application({
     width: DrawSize + Margin * 2,
     height: DrawSize + Margin * 2,
     resolution: window.devicePixelRatio || 1,
     autoResize: true,
-    backgroundColor: 0xdddddd,
+    backgroundColor: 0xeeeeee,
     autoDensity: true,
     antialias: true,
 });
 document.body.appendChild(app.view);
 const graph = new PIXI.Graphics();
 app.stage.addChild(graph);
+const lineColor = 0x292929;
+const circleColor = 0xff4500;
+const lineWidth = 3;
+const CircleRadius = 5;
 
 // todo
 function gen(seed) {
@@ -108,24 +112,22 @@ function visualize() {
         const N = input[0][0];
 
         if (t != 0) {
-            graph.lineStyle(4, 0x000000);
-            console.log(output[t - 1]);
+            graph.lineStyle(lineWidth, lineColor);
             graph.moveTo(positions[output[t - 1][N - 1] - 1][0], positions[output[t - 1][N - 1] - 1][1]);
             for (let i = 0; i < N; i++) {
                 graph.lineTo(positions[output[t - 1][i] - 1][0], positions[output[t - 1][i] - 1][1]);
+                graph.moveTo(positions[output[t - 1][i] - 1][0], positions[output[t - 1][i] - 1][1]);
             }
         }
 
         for (let i = 0; i < N; i++) {
-            console.log(positions[i]);
-            graph.beginFill(0x999999).lineStyle(4, 0x999999);
-            graph.drawCircle(positions[i][0], positions[i][1], 4);
+            graph.beginFill(circleColor).lineStyle(0, circleColor);
+            graph.drawCircle(positions[i][0], positions[i][1], CircleRadius);
             graph.endFill();
         }
 
-
-        app.renderer();
     } catch (error) {
+        console.log(error);
         document.getElementById("result").innerHTML = "<p>Invalid</p>";
     }
 }
