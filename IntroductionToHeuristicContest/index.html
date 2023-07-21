@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ビジュアライザ</title>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>
+        Introduction To Heuristic Contest
+    </h1>
+    <div class="problem">
+        <p>
+            introduction to heuristic contest を手で遊べるようにしました<br>
+            出力形式通りの出力にしないとバグります。ご注意ください
+        </p>
+        使い方
+        <details>
+            <p>
+                色々いじってみてね
+            </p>
+        </details>
+    </div>
+    <hr>
+
+    <p>
+        <!--ここにシードとか入れてinputを変えられるようにする-->
+        <label>
+            Seed:
+            <input type="number" id="seed" value="0" min="0" max="2147483647" onchange="generate()">
+        </label>
+    </p>
+
+    <p>
+        <!--input欄をここに作る-->
+        <label>
+            Input: <br>
+            <textarea id="input" rows="4" style="width:500px;" oninput="visualize()"></textarea>
+        </label>
+    </p>
+
+    <p>
+        <!--output欄をここに作る-->
+        <label>
+            Output: <br>
+            <textarea id="output" rows="4" style="width:500px;" oninput="visualize()"></textarea>
+        </label>
+    </p>
+
+    <hr>
+
+    <div id="result">
+    </div>
+
+    <p id="score">
+        Score = 0
+    </p>
+
+    <div>
+        
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+
+</html>
