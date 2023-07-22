@@ -83,7 +83,6 @@ function ArrayToString(values) {
     return result;
 }
 
-
 let contestV;
 let contestH;
 
@@ -133,6 +132,7 @@ function changeInput(){
             let td = document.createElement("td");
             td.textContent = input[i+2][j];
             td.className = "ContestHolds";
+            td.onclick = function(){clicked(this);};
             tr.appendChild(td);
         }
         contestH.appendChild(tr);
@@ -193,4 +193,20 @@ async function generate() {
 }
 generate();
 
-// output の　readonly を変更してやる
+let manualMode = false;
+function changeMode(){
+    manualMode = !manualMode;
+}
+
+function clicked(Cell){
+    if(manualMode === false) return;
+    let rowINX = Cell.parentNode.rowIndex;
+    let cellINX = Cell.cellIndex;
+    const output = StringToArray(document.getElementById("output").value);
+    while(output.length <= rowINX){
+        output.push([1]);
+    }
+    output[rowINX][0] = cellINX + 1;
+    document.getElementById("output").value = ArrayToString(output);
+    visualize();
+}

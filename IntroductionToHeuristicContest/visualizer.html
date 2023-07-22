@@ -25,8 +25,11 @@
             <p>
                 Seed 欄の値を変えると対応する入力が Input 欄に生成されます。<br>
                 生成された入力に対して解答プログラムをローカル実行し、プログラムの出力を Output 欄に貼り付けると、ビジュアライズ結果が表示されます。<br>
+                <br>
+                manual modeについて<br>
                 manual mode にチェックを入れるとマウスを用いて手動で遊ぶことが出来ます。<br>
-                コンテストを開きたいマスをクリックをすると、その日のコンテストを変更できます。
+                コンテストを開きたいマスをクリックをすると、その日のコンテストを変更できます。<br>
+                コンテストを選ぶ際、その前日までの中に開くコンテスト決まってない日がある時にはコンテストAが自動で選ばれます<br>
             </p>
         </details>
     </div>
@@ -51,7 +54,10 @@
     <p>
         <!--output欄をここに作る-->
         <label>
-            Output: <br>
+            Output: 
+            <input type="checkbox" id="manual" oninput="changeMode()">
+            manual mode (mouse click)
+            <br>
             <textarea id="output" rows="4" style="width:500px;" oninput="visualize()"></textarea>
         </label>
     </p>

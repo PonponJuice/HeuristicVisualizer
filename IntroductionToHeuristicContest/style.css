@@ -41,3 +41,10 @@ table {
     
     font-size: 0;
 }
+
+textarea:read-only{
+    background-color: lightgray;
+}
+input:read-only{
+    background-color: lightgray;
+}
