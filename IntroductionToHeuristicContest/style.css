@@ -1,0 +1,28 @@
+table {
+    border-collapse: collapse;
+}
+
+table.Contest{
+    width: min(100%, 1500px);
+}
+
+.ContestType {
+    border: 1px solid grey;
+    background: #ddd;
+    padding: 3px 10px;
+    text-align: center;
+    font-size: x-small;
+    width: 100px;
+}
+
+.ContestValue {
+    border: 1px solid grey;
+    padding: 3px 10px;
+    text-align: center;
+    font-size: x-small;
+    cursor: pointer;
+}
+
+.Hold{
+    font-size: 0;
+}

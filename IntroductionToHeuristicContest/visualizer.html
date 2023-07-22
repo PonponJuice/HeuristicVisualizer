@@ -11,18 +11,22 @@
 </head>
 
 <body>
-    <h1>
-        Introduction To Heuristic Contest
-    </h1>
+    
+    <p>
+        問題文は<a href="https://atcoder.jp/contests/intro-heuristics/tasks/intro_heuristics_a">こちら</a>。
+    </p>
+
     <div class="problem">
         <p>
-            introduction to heuristic contest を手で遊べるようにしました<br>
-            出力形式通りの出力にしないとバグります。ご注意ください
+            出力形式通りの出力にしないとバグるかもしれません。ご注意ください<br>
         </p>
         使い方
         <details>
             <p>
-                色々いじってみてね
+                Seed 欄の値を変えると対応する入力が Input 欄に生成されます。<br>
+                生成された入力に対して解答プログラムをローカル実行し、プログラムの出力を Output 欄に貼り付けると、ビジュアライズ結果が表示されます。<br>
+                manual mode にチェックを入れるとマウスを用いて手動で遊ぶことが出来ます。<br>
+                コンテストを開きたいマスをクリックをすると、その日のコンテストを変更できます。
             </p>
         </details>
     </div>
@@ -55,14 +59,16 @@
     <hr>
 
     <div id="result">
+        <p>
+            Invalid
+        </p>
     </div>
 
     <p id="score">
-        Score = 0
+        Score = 0 (error)
     </p>
 
-    <div>
-        
+    <div class="visualize">
     </div>
     
     <script src="main.js"></script>

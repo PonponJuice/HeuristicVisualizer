@@ -49,7 +49,7 @@ function computeScore(input, output) {
         }
     }
 
-    return { score: Math.max(0, 1000000 + answer), error: "" };
+    return { score: answer, error: "" };
 }
 
 function StringToArray(value) {
@@ -83,15 +83,45 @@ function ArrayToString(values) {
     return result;
 }
 
+
+let contestV;
+let contestH;
+
+function visInit(){
+    contestV = document.createElement('table');
+    
+    var tr = document.createElement('tr');
+    for (var j = 0; j < 26; j++) {
+        var td = document.createElement('td');
+        td.textContent = "" + String.fromCharCode('A'.charCodeAt(0) + j);
+        td.className = "ContestType";
+        tr.appendChild(td);
+    }
+    contestV.appendChild(tr);
+    
+    tr = document.createElement('tr');
+    for (var j = 0; j < 26; j++) {
+        var td = document.createElement('td');
+        td.textContent = 0;
+        td.className = "ContestValue";
+        tr.appendChild(td);
+    }
+    contestV.appendChild(tr);
+    contestV.className = "Contest";
+
+    document.getElementsByClassName('visualize')[0].appendChild(contestV);
+}
+visInit();
+
 function visualize() {
     document.getElementById("result").innerHTML = "";
-    document.getElementById("score").innerHTML = "Score = 0";
+    document.getElementById("score").innerHTML = "Score = 0 (error)";
     try {
         const input = StringToArray(document.getElementById("input").value);
         const output = StringToArray(document.getElementById("output").value);
         const result = computeScore(input, output);
         if (result.error === "") {
-            document.getElementById("score").innerHTML = "Score = " + result.score;
+            document.getElementById("score").innerHTML = "Score = " + Math.max(0, 1000000 + result.score) + " (" + result.score + ")";
         } else {
             document.getElementById("result").innerHTML = "<p>" + result.error + "</p>";
         }
@@ -111,3 +141,5 @@ async function generate() {
     visualize();
 }
 generate();
+
+// output の　readonly を変更してやる
