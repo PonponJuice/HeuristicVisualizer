@@ -224,7 +224,7 @@ function progressVisualize(input, output){
         contestH.rows[i].cells[output[i][0] - 1].style.background = "";
     }
 
-    document.getElementById("score").innerHTML = "Progress Score = " + Math.max(0, 1000000 + answer) + " (" + answer + ")";
+    document.getElementById("score").innerHTML = "Provisional Score = " + Math.max(0, 1000000 + answer) + " (" + answer + ")";
 }
 
 async function generate() {
