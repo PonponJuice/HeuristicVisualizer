@@ -26,14 +26,14 @@ async function gen(seed) {
 }
 
 function computeScore(input, output) {
-    const N = input[0][0];
+    const D = input[0][0];
     const c = input[1];
-    for (let i = 0; i < N; i++) {
+    for (let i = 0; i < D; i++) {
         if(typeof(output[i][0]) != "number"){
-            return { score: 0, error: output[i][0] + " is not number" };
+            return { score: 0, error: "day" + (i+1) + " : " + output[i][0] + " is not number" };
         }
         if(output[i][0] < 1 || output[i][0] > 26){
-            return { score: 0, error: output[i][0] + " is not contest" };
+            return { score: 0, error: "day" + (i+1) + " : " + output[i][0] + " is not contest" };
         }
     }
     
@@ -41,7 +41,7 @@ function computeScore(input, output) {
     for(let i = 0; i < 26; i++)last[i] = -1;
 
     let answer = 0;
-    for (let i = 0; i < N; i++) {
+    for (let i = 0; i < D; i++) {
         answer += input[2 + i][output[i][0] - 1];
         last[output[i][0] - 1] = i;
         for (let j = 0; j < 26; j++){
@@ -141,18 +141,17 @@ function changeInput(){
     visualize();
 }
 
-function OutputColor(input,output){
+function OutputColor(input, output){
     const D = input[0][0];
     
     let last = new Array(26);
     for(let i = 0; i < 26; i++)last[i] = -1;
 
-    let answer = 0;
     for (let i = 0; i < D; i++) {
         last[output[i][0] - 1] = i;
         for (let j = 0; j < 26; j++){
             contestH.rows[i].cells[j].className = "ContestHolds";
-            let diff = (i - last[j]) * 3;
+            let diff = parseInt((i - last[j]) * input[1][j]/ 25);
             diff = Math.min(255, diff);
             let col = (255 - diff).toString(16);
             if(col.length === 1)col = "0" + col;
@@ -166,23 +165,66 @@ function OutputColor(input,output){
 function visualize() {
     document.getElementById("result").innerHTML = "";
     document.getElementById("score").innerHTML = "Score = 0 (error)";
+
+    const input = StringToArray(document.getElementById("input").value);
+    const output = StringToArray(document.getElementById("output").value);
+    for(let i = 0; i < input[0][0]; i++){
+        for(let j = 0; j < 26; j++){
+            contestH.rows[i].cells[j].className = "ContestHolds";
+            contestH.rows[i].cells[j].style.background = "";
+        }
+    }
+
     try {
-        const input = StringToArray(document.getElementById("input").value);
-        const output = StringToArray(document.getElementById("output").value);
         const result = computeScore(input, output);
         if (result.error === "") {
             document.getElementById("score").innerHTML = "Score = " + Math.max(0, 1000000 + result.score) + " (" + result.score + ")";
         } else {
             document.getElementById("result").innerHTML = "<p>" + result.error + "</p>";
+            return;
         }
         OutputColor(input, output);
         return;
     }catch (error) {
         console.log(error);
         document.getElementById("result").innerHTML = "<p>Invalid</p>";
+        try {
+            progressVisualize(input, output);
+        } catch (error) {
+            console.log(error);
+            return;
+        }
         return;
     }
 
+}
+
+function progressVisualize(input, output){
+    const D = output.length;
+    const c = input[1];
+    
+    let last = new Array(26);
+    for(let i = 0; i < 26; i++)last[i] = -1;
+
+    let answer = 0;
+
+    for (let i = 0; i < D; i++) {
+        answer += input[2 + i][output[i][0] - 1];
+        last[output[i][0] - 1] = i;
+        for (let j = 0; j < 26; j++){
+            answer -= c[j] * (i - last[j]);
+            contestH.rows[i].cells[j].className = "ContestHolds";
+            let diff = parseInt((i - last[j]) * input[1][j]/ 25);
+            diff = Math.min(255, diff);
+            let col = (255 - diff).toString(16);
+            if(col.length === 1)col = "0" + col;
+            contestH.rows[i].cells[j].style.background = "#ff" + col + col;
+        }
+        contestH.rows[i].cells[output[i][0] - 1].className += " ContestHold";
+        contestH.rows[i].cells[output[i][0] - 1].style.background = "";
+    }
+
+    document.getElementById("score").innerHTML = "Progress Score = " + Math.max(0, 1000000 + answer) + " (" + answer + ")";
 }
 
 async function generate() {
