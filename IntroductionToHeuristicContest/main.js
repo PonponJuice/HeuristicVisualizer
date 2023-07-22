@@ -90,9 +90,9 @@ let contestH;
 function visInit(){
     contestV = document.createElement('table');
     
-    var tr = document.createElement('tr');
-    for (var j = 0; j < 26; j++) {
-        var td = document.createElement('td');
+    let tr = document.createElement('tr');
+    for (let j = 0; j < 26; j++) {
+        let td = document.createElement('td');
         td.textContent = "" + String.fromCharCode('A'.charCodeAt(0) + j);
         td.className = "ContestType";
         tr.appendChild(td);
@@ -100,8 +100,8 @@ function visInit(){
     contestV.appendChild(tr);
     
     tr = document.createElement('tr');
-    for (var j = 0; j < 26; j++) {
-        var td = document.createElement('td');
+    for (let j = 0; j < 26; j++) {
+        let td = document.createElement('td');
         td.textContent = 0;
         td.className = "ContestValue";
         tr.appendChild(td);
@@ -110,8 +110,58 @@ function visInit(){
     contestV.className = "Contest";
 
     document.getElementsByClassName('visualize')[0].appendChild(contestV);
+    contestH = document.createElement('table');
+    contestH.className = "Contes";
+    document.getElementsByClassName('visualize')[0].appendChild(contestH);
 }
 visInit();
+
+function changeInput(){
+
+    const input = StringToArray(document.getElementById("input").value);
+    let D = input[0][0];
+
+    let conV = contestV.rows[1].cells;
+    for(let i = 0; i < 26; i++){
+        conV[i].innerHTML = input[1][i];
+    }
+    
+    contestH.innerHTML = "";
+    for(let i = 0; i < D; i++){
+        let tr = document.createElement("tr");
+        for(let j = 0; j < 26; j++){
+            let td = document.createElement("td");
+            td.textContent = input[i+2][j];
+            td.className = "ContestHolds";
+            tr.appendChild(td);
+        }
+        contestH.appendChild(tr);
+    }
+
+    visualize();
+}
+
+function OutputColor(input,output){
+    const D = input[0][0];
+    
+    let last = new Array(26);
+    for(let i = 0; i < 26; i++)last[i] = -1;
+
+    let answer = 0;
+    for (let i = 0; i < D; i++) {
+        last[output[i][0] - 1] = i;
+        for (let j = 0; j < 26; j++){
+            contestH.rows[i].cells[j].className = "ContestHolds";
+            let diff = (i - last[j]) * 3;
+            diff = Math.min(255, diff);
+            let col = (255 - diff).toString(16);
+            if(col.length === 1)col = "0" + col;
+            contestH.rows[i].cells[j].style.background = "#ff" + col + col;
+        }
+        contestH.rows[i].cells[output[i][0] - 1].className += " ContestHold";
+        contestH.rows[i].cells[output[i][0] - 1].style.background = "";
+    }
+}
 
 function visualize() {
     document.getElementById("result").innerHTML = "";
@@ -125,6 +175,7 @@ function visualize() {
         } else {
             document.getElementById("result").innerHTML = "<p>" + result.error + "</p>";
         }
+        OutputColor(input, output);
         return;
     }catch (error) {
         console.log(error);
@@ -138,7 +189,7 @@ async function generate() {
     const seed = document.getElementById("seed").value;
     const input = await gen(seed);
     document.getElementById("input").value = input;
-    visualize();
+    changeInput();
 }
 generate();
 

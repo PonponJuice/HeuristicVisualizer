@@ -1,28 +1,43 @@
 table {
     border-collapse: collapse;
-}
-
-table.Contest{
-    width: min(100%, 1500px);
+    width: min(100%, 1500px); 
+    margin-bottom: 10px;
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 
 .ContestType {
     border: 1px solid grey;
     background: #ddd;
-    padding: 3px 10px;
+    padding: 2px 5px;
     text-align: center;
     font-size: x-small;
-    width: 100px;
 }
 
 .ContestValue {
     border: 1px solid grey;
-    padding: 3px 10px;
+    background: wheat;
+    padding: 2px 5px;
     text-align: center;
     font-size: x-small;
     cursor: pointer;
 }
 
+.ContestHolds{
+    border: 1px solid grey;
+    padding: 2px 5px;
+    background: white;
+    text-align: center;
+    font-size: x-small;
+    cursor: pointer;
+}
+
+.ContestHold{
+    border: 2px solid blue;
+    background: lightskyblue;
+}
+
 .Hold{
+    
     font-size: 0;
 }
