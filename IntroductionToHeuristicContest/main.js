@@ -76,7 +76,7 @@ function ArrayToString(values) {
     for(let value of values) {
         for (let i = 0; i < value.length; i++){
             result += value[i];
-            if(i != value.length) result += " ";
+            if(i + 1 != value.length) result += " ";
         }
         result += "\n";
     }
