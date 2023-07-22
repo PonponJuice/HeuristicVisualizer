@@ -1,6 +1,6 @@
 table {
     border-collapse: collapse;
-    width: min(100%, 1500px); 
+    width: max(1225px, min(100%, 1500px)); 
     margin-bottom: 10px;
     table-layout: fixed;
     word-wrap: break-word;
@@ -18,6 +18,15 @@ table {
     border: 1px solid grey;
     background: wheat;
     padding: 2px 5px;
+    text-align: center;
+    font-size: x-small;
+    cursor: pointer;
+}
+
+.day{
+    border: 1px solid black;
+    padding: 0;
+    background: lightgreen;
     text-align: center;
     font-size: x-small;
     cursor: pointer;

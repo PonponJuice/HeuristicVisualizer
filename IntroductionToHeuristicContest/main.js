@@ -90,6 +90,9 @@ function visInit(){
     contestV = document.createElement('table');
     
     let tr = document.createElement('tr');
+    let non = document.createElement('td');
+    non.className = "non";
+    tr.appendChild(non);
     for (let j = 0; j < 26; j++) {
         let td = document.createElement('td');
         td.textContent = "" + String.fromCharCode('A'.charCodeAt(0) + j);
@@ -99,6 +102,9 @@ function visInit(){
     contestV.appendChild(tr);
     
     tr = document.createElement('tr');
+    non = document.createElement('td');
+    non.className = "non";
+    tr.appendChild(non);
     for (let j = 0; j < 26; j++) {
         let td = document.createElement('td');
         td.textContent = 0;
@@ -122,12 +128,16 @@ function changeInput(){
 
     let conV = contestV.rows[1].cells;
     for(let i = 0; i < 26; i++){
-        conV[i].innerHTML = input[1][i];
+        conV[i+1].innerHTML = input[1][i];
     }
     
     contestH.innerHTML = "";
     for(let i = 0; i < D; i++){
         let tr = document.createElement("tr");
+        let day = document.createElement('td');
+        day.textContent = "day"+(i+1);
+        day.className = "day";
+        tr.appendChild(day);
         for(let j = 0; j < 26; j++){
             let td = document.createElement("td");
             td.textContent = input[i+2][j];
@@ -150,15 +160,15 @@ function OutputColor(input, output){
     for (let i = 0; i < D; i++) {
         last[output[i][0] - 1] = i;
         for (let j = 0; j < 26; j++){
-            contestH.rows[i].cells[j].className = "ContestHolds";
+            contestH.rows[i].cells[j+1].className = "ContestHolds";
             let diff = parseInt((i - last[j]) * input[1][j]/ 25);
             diff = Math.min(255, diff);
             let col = (255 - diff).toString(16);
             if(col.length === 1)col = "0" + col;
-            contestH.rows[i].cells[j].style.background = "#ff" + col + col;
+            contestH.rows[i].cells[j+1].style.background = "#ff" + col + col;
         }
-        contestH.rows[i].cells[output[i][0] - 1].className += " ContestHold";
-        contestH.rows[i].cells[output[i][0] - 1].style.background = "";
+        contestH.rows[i].cells[output[i][0]].className += " ContestHold";
+        contestH.rows[i].cells[output[i][0]].style.background = "";
     }
 }
 
@@ -170,8 +180,8 @@ function visualize() {
     const output = StringToArray(document.getElementById("output").value);
     for(let i = 0; i < input[0][0]; i++){
         for(let j = 0; j < 26; j++){
-            contestH.rows[i].cells[j].className = "ContestHolds";
-            contestH.rows[i].cells[j].style.background = "";
+            contestH.rows[i].cells[j+1].className = "ContestHolds";
+            contestH.rows[i].cells[j+1].style.background = "";
         }
     }
 
@@ -213,15 +223,15 @@ function progressVisualize(input, output){
         last[output[i][0] - 1] = i;
         for (let j = 0; j < 26; j++){
             answer -= c[j] * (i - last[j]);
-            contestH.rows[i].cells[j].className = "ContestHolds";
+            contestH.rows[i].cells[j+1].className = "ContestHolds";
             let diff = parseInt((i - last[j]) * input[1][j]/ 25);
             diff = Math.min(255, diff);
             let col = (255 - diff).toString(16);
             if(col.length === 1)col = "0" + col;
-            contestH.rows[i].cells[j].style.background = "#ff" + col + col;
+            contestH.rows[i].cells[j+1].style.background = "#ff" + col + col;
         }
-        contestH.rows[i].cells[output[i][0] - 1].className += " ContestHold";
-        contestH.rows[i].cells[output[i][0] - 1].style.background = "";
+        contestH.rows[i].cells[output[i][0]].className += " ContestHold";
+        contestH.rows[i].cells[output[i][0]].style.background = "";
     }
 
     document.getElementById("score").innerHTML = "Provisional Score = " + Math.max(0, 1000000 + answer) + " (" + answer + ")";
@@ -248,7 +258,7 @@ function clicked(Cell){
     while(output.length <= rowINX){
         output.push([1]);
     }
-    output[rowINX][0] = cellINX + 1;
+    output[rowINX][0] = cellINX;
     document.getElementById("output").value = ArrayToString(output);
     visualize();
 }
