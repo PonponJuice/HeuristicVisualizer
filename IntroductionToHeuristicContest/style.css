@@ -35,7 +35,6 @@ table {
 .ContestHolds{
     border: 1px solid grey;
     padding: 2px 5px;
-    background: white;
     text-align: center;
     font-size: x-small;
     cursor: pointer;
@@ -44,6 +43,18 @@ table {
 .ContestHold{
     border: 2px solid blue;
     background: lightskyblue;
+    padding: 2px 5px;
+    text-align: center;
+    font-size: x-small;
+    cursor: pointer;
+}
+
+
+.ContestHolds:hover{
+    border: 2px solid black;
+}
+.ContestHold:hover{
+    border: 2px solid black;
 }
 
 .Hold{
