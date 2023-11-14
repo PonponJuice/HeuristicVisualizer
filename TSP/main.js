@@ -34,7 +34,7 @@ function computeScore(input, output) {
             if (output[i] == output[j]) err = (i + 1) + ", " + (j + 1) + "is same point";
         }
     }
-    return { score: parseInt(1e9 / answer), error: err };
+    return { score: answer, error: err };
 }
 
 function StringToArray(value) {
